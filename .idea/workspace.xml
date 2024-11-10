@@ -10,8 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b655853-e9d2-456f-bf91-7b9a0548e6cc" name="Changes" comment="&#10;git init">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/first/controller/config/finalControllers/A.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/A.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +30,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "AshbringerSC2"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AshbringerSC2/SpringMVC.git",
+    "accountId": "1061beb0-cb53-4b04-b7f2-991423bde15d"
+  }
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -189,7 +202,7 @@
       <workItem from="1731270752140" duration="66000" />
       <workItem from="1731271456433" duration="336000" />
       <workItem from="1731272855844" duration="608000" />
-      <workItem from="1731273510097" duration="442000" />
+      <workItem from="1731273510097" duration="1722000" />
     </task>
     <task id="LOCAL-00001" summary="git init&#10;git add .&#10;git commit -m &quot;first commit&quot;&#10;git branch -M main&#10;git remote add origin https://github.com/AshbringerSC2/SpringMVCProject.git&#10;git push -u origin main">
       <option name="closed" value="true" />
