@@ -1,0 +1,426 @@
+Index: src/main/java/first/controller/config/finalControllers/OneController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/first/controller/config/finalControllers/OneController.java b/src/main/java/first/controller/config/finalControllers/OneController.java
+new file mode 100644
+--- /dev/null	(date 1731176861466)
++++ b/src/main/java/first/controller/config/finalControllers/OneController.java	(date 1731176861466)
+@@ -0,0 +1,22 @@
++package first.controller.config.finalControllers;
++
++import org.springframework.stereotype.Controller;
++import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.RequestParam;
++
++import javax.servlet.http.HttpServletRequest;
++
++@Controller
++public class OneController {
++    @GetMapping("/hello")
++    public String firstPage(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "surname", required = false) String surname){
++        System.out.println("Hello " + name + " " + surname);
++        return "first/hello";
++
++    }
++    @GetMapping("/goodbye")
++    public String tooPage(){
++        return "first/goodbye";
++
++    }
++}
+Index: src/main/java/first/controller/config/SpringConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/first/controller/config/SpringConfig.java b/src/main/java/first/controller/config/SpringConfig.java
+new file mode 100644
+--- /dev/null	(date 1731095607704)
++++ b/src/main/java/first/controller/config/SpringConfig.java	(date 1731095607704)
+@@ -0,0 +1,50 @@
++package first.controller.config;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.context.ApplicationContext;
++import org.springframework.context.annotation.Bean;
++import org.springframework.context.annotation.ComponentScan;
++import org.springframework.context.annotation.Configuration;
++import org.springframework.web.servlet.config.annotation.EnableWebMvc;
++import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
++import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
++import org.thymeleaf.spring5.SpringTemplateEngine;
++import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
++import org.thymeleaf.spring5.view.ThymeleafViewResolver;
++
++@Configuration
++@ComponentScan("first.controller")
++@EnableWebMvc
++public class SpringConfig implements WebMvcConfigurer {
++
++    private final ApplicationContext applicationContext;
++
++    @Autowired
++    public SpringConfig(ApplicationContext applicationContext) {
++        this.applicationContext = applicationContext;
++    }
++
++    @Bean
++    public SpringResourceTemplateResolver templateResolver() {
++        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
++        templateResolver.setApplicationContext(applicationContext);
++        templateResolver.setPrefix("/WEB-INF/views/");
++        templateResolver.setSuffix(".html");
++        return templateResolver;
++    }
++
++    @Bean
++    public SpringTemplateEngine templateEngine() {
++        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
++        templateEngine.setTemplateResolver(templateResolver());
++        templateEngine.setEnableSpringELCompiler(true);
++        return templateEngine;
++    }
++
++    @Override
++    public void configureViewResolvers(ViewResolverRegistry registry) {
++        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
++        resolver.setTemplateEngine(templateEngine());
++        registry.viewResolver(resolver);
++    }
++}
+Index: src/main/java/first/controller/config/MySpringMVCInit.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/first/controller/config/MySpringMVCInit.java b/src/main/java/first/controller/config/MySpringMVCInit.java
+new file mode 100644
+--- /dev/null	(date 1731149706894)
++++ b/src/main/java/first/controller/config/MySpringMVCInit.java	(date 1731149706894)
+@@ -0,0 +1,17 @@
++package first.controller.config;
++
++import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
++
++public class MySpringMVCInit extends AbstractAnnotationConfigDispatcherServletInitializer {
++    protected Class<?>[] getRootConfigClasses() {
++        return new Class[0];
++    }
++
++    protected Class<?>[] getServletConfigClasses() {
++        return new Class[] {SpringConfig.class};
++    }
++
++    protected String[] getServletMappings() {
++        return new String[] {"/ "};
++    }
++}
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1731078608630)
++++ b/.idea/misc.xml	(date 1731078608630)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="MavenProjectsManager">
++    <option name="originalFiles">
++      <list>
++        <option value="$PROJECT_DIR$/pom.xml" />
++      </list>
++    </option>
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="corretto-1.8" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/webapp/index.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/index.jsp b/src/main/webapp/index.jsp
+new file mode 100644
+--- /dev/null	(date 1731150610395)
++++ b/src/main/webapp/index.jsp	(date 1731150610395)
+@@ -0,0 +1,7 @@
++<html>
++<body>
++<h2>Hello World!</h2>
++
++<a href="/hello">Sayhello</a>
++</body>
++</html>
+Index: src/main/webapp/WEB-INF/views/first/hello.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/WEB-INF/views/first/hello.html b/src/main/webapp/WEB-INF/views/first/hello.html
+new file mode 100644
+--- /dev/null	(date 1731176911667)
++++ b/src/main/webapp/WEB-INF/views/first/hello.html	(date 1731176911667)
+@@ -0,0 +1,12 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>hello</title>
++</head>
++<body>
++Hello!
++<a href="/goodbye.html">Say goodbye</a> or <a href="/exit">Exit</a>
++or <a href="/hello?name=Tom&surname=Jones">Request with parameters</a>
++</body>
++</html>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1731078609445)
++++ b/.idea/.gitignore	(date 1731078609445)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+new file mode 100644
+--- /dev/null	(date 1731078643995)
++++ b/.idea/encodings.xml	(date 1731078643995)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Encoding">
++    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1731078609478)
++++ b/.idea/vcs.xml	(date 1731078609478)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+new file mode 100644
+--- /dev/null	(date 1731096209650)
++++ b/pom.xml	(date 1731096209650)
+@@ -0,0 +1,65 @@
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
++  <modelVersion>4.0.0</modelVersion>
++  <groupId>org.example</groupId>
++  <artifactId>SpringMVCFirstProject</artifactId>
++  <packaging>war</packaging>
++  <version>1.0-SNAPSHOT</version>
++  <name>SpringMVCFirstProject Maven Webapp</name>
++  <url>http://maven.apache.org</url>
++  <properties>
++    <spring.version>5.2.1.RELEASE</spring.version>
++  </properties>
++  <dependencies>
++    <dependency>
++      <groupId>junit</groupId>
++      <artifactId>junit</artifactId>
++      <version>3.8.1</version>
++      <scope>test</scope>
++    </dependency>
++      <dependency>
++        <groupId>org.springframework</groupId>
++        <artifactId>spring-core</artifactId>
++        <version>${spring.version}</version>
++      </dependency>
++    <dependency>
++      <groupId>org.springframework</groupId>
++      <artifactId>spring-webmvc</artifactId>
++      <version>${spring.version}</version>
++    </dependency>
++    <dependency>
++      <groupId>org.springframework</groupId>
++      <artifactId>spring-web</artifactId>
++      <version>${spring.version}</version>
++    </dependency>
++    <dependency>
++      <groupId>org.springframework</groupId>
++      <artifactId>spring-context</artifactId>
++      <version>${spring.version}</version>
++    </dependency>
++    <dependency>
++      <groupId>org.thymeleaf</groupId>
++      <artifactId>thymeleaf-spring5</artifactId>
++      <version>3.0.11.RELEASE</version>
++    </dependency>
++    <dependency>
++      <groupId>javax.servlet</groupId>
++      <artifactId>javax.servlet-api</artifactId>
++      <version>4.0.1</version>
++      <scope>provided</scope>
++    </dependency>
++  </dependencies>
++  <build>
++    <finalName>SpringMVCFirstProject</finalName>
++    <plugins>
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-compiler-plugin</artifactId>
++        <configuration>
++          <source>6</source>
++          <target>6</target>
++        </configuration>
++      </plugin>
++    </plugins>
++  </build>
++</project>
+Index: src/main/webapp/WEB-INF/views/first/goodbye.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/WEB-INF/views/first/goodbye.html b/src/main/webapp/WEB-INF/views/first/goodbye.html
+new file mode 100644
+--- /dev/null	(date 1731151474085)
++++ b/src/main/webapp/WEB-INF/views/first/goodbye.html	(date 1731151474085)
+@@ -0,0 +1,11 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>goodbye</title>
++</head>
++<body>
++Goodbye!
++<a href="/hello.html">SayHello</a> or <a href="/exit">Exit</a>
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/webapp/WEB-INF/views/second/exit.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/WEB-INF/views/second/exit.html b/src/main/webapp/WEB-INF/views/second/exit.html
+new file mode 100644
+--- /dev/null	(date 1731151335641)
++++ b/src/main/webapp/WEB-INF/views/second/exit.html	(date 1731151335641)
+@@ -0,0 +1,10 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Exit</title>
++</head>
++<body>
++No more links
++</body>
++</html>
+\ No newline at end of file
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+--- /dev/null	(date 1731078606568)
++++ b/.gitignore	(date 1731078606568)
+@@ -0,0 +1,38 @@
++target/
++!.mvn/wrapper/maven-wrapper.jar
++!**/src/main/**/target/
++!**/src/test/**/target/
++
++### IntelliJ IDEA ###
++.idea/modules.xml
++.idea/jarRepositories.xml
++.idea/compiler.xml
++.idea/libraries/
++*.iws
++*.iml
++*.ipr
++
++### Eclipse ###
++.apt_generated
++.classpath
++.factorypath
++.project
++.settings
++.springBeans
++.sts4-cache
++
++### NetBeans ###
++/nbproject/private/
++/nbbuild/
++/dist/
++/nbdist/
++/.nb-gradle/
++build/
++!**/src/main/**/build/
++!**/src/test/**/build/
++
++### VS Code ###
++.vscode/
++
++### Mac OS ###
++.DS_Store
+\ No newline at end of file
+Index: src/main/java/first/controller/config/finalControllers/SecondController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/first/controller/config/finalControllers/SecondController.java b/src/main/java/first/controller/config/finalControllers/SecondController.java
+new file mode 100644
+--- /dev/null	(date 1731151274009)
++++ b/src/main/java/first/controller/config/finalControllers/SecondController.java	(date 1731151274009)
+@@ -0,0 +1,12 @@
++package first.controller.config.finalControllers;
++
++import org.springframework.stereotype.Controller;
++import org.springframework.web.bind.annotation.GetMapping;
++
++@Controller
++public class SecondController {
++    @GetMapping("/exit")
++    public String exit(){
++        return "second/exit";
++    }
++}
