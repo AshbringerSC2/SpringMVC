@@ -1,0 +1,1 @@
+git remote add origin https://github.com/AshbringerSC2/SpringMVCFirstProject.git
