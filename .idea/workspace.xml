@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6b655853-e9d2-456f-bf91-7b9a0548e6cc" name="Changes" comment="&#10;git init" />
+    <list default="true" id="6b655853-e9d2-456f-bf91-7b9a0548e6cc" name="Changes" comment="&#10;git init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -163,7 +165,7 @@
       <workItem from="1731149597979" duration="5338000" />
       <workItem from="1731267373940" duration="107000" />
       <workItem from="1731267487721" duration="314000" />
-      <workItem from="1731267832601" duration="955000" />
+      <workItem from="1731267832601" duration="1313000" />
     </task>
     <task id="LOCAL-00001" summary="git init&#10;git add .&#10;git commit -m &quot;first commit&quot;&#10;git branch -M main&#10;git remote add origin https://github.com/AshbringerSC2/SpringMVCProject.git&#10;git push -u origin main">
       <option name="closed" value="true" />
